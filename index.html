@@ -12,6 +12,18 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://www.google.com/recaptcha/api.js?render=6LeKUBkmAAAAACiGSJwGMirYAiZUaJYo3VC2DWQs"></script>
+		<script>
+			function onClick(e) {
+			  e.preventDefault();
+			  grecaptcha.ready(function() {
+				grecaptcha.execute('reCAPTCHA_site_key', {action: 'submit'}).then(function(token) {
+					// Add your logic to submit to your backend server here.
+				});
+			  });
+			}
+		</script>
+	  
 	</head>
 	<body class="is-preload">
 
@@ -26,44 +38,20 @@
 							<ul>
 								<!--<li><a href="#">Hogar</a></li>-->
 								<li>
-									<a href="#">Empresas</a>
-									<ul>
-										<li><a href="Network.html">Redes y comunicaciones</a></li>
-										<li><a href="Automatization.html">Control de asistencia</a></li>
-										<li><a href="#">Video vigilancia</a></li>
-										<li><a href="#">Alarmas</a></li>
-										<li><a href="#">Servicios IT</a></li>
-									</ul>
-								</li>
-								<li>
-									<a href="#">Hogar</a>
-										<ul>
-											<li><a href="#">Wi Fi</a></li>z	
-											<li><a href="#">Smart home</a></li>
-											<li><a href="#">Alarmas</a></li>
-											<li><a href="#">Video vigilancia</a></li>
-											<li><a href="#">Reparación de computadoras</a></li>
-										</ul>
-									</li>
 									
+										<li><a href="Network.html">Redes y comunicaciones</a></li>
+										<li><a href="Automatization.html">Automatización de áreas</a></li>
+										<li><a href="Seguridad.html">Seguridad</a></li>
+										<li><a href="IT_servicios.html">Servicios IT</a></li>
+
+								</li>
 							</ul>
-								<!--<li><a href="#">Empresas</a></li>-->
-						
-							<!--	<li><a href="#">sistema de Acceso y Seguridad</a></li>
-								<li>
-									<a href="#">Submenu</a>
-									<ul>
-										<li><a href="#">Option One</a></li>
-										<li><a href="#">Option Two</a></li>
-										<li><a href="#">Option Three</a></li>
-										<li><a href="#">Option Four</a></li>
-									</ul>
-								</li>-->
-							
 						</li>
-						<li><a href="generic.html">Quienes Somos</a></li>
-						<li><a href="elements.html">Contacto</a></li>
+							<li><a href="sistec.html">Quienes Somos</a></li>
+							<li><a href="#footer">Contacto</a></li>
 					</ul>
+
+					
 				</nav>
 			</header>
 
@@ -76,11 +64,11 @@
 						<div class="image fit special">
 							<img src="images/SISTEC_INT.jpg" alt="" />
 						</div>
-						<ul class="feature-icons">
+						<!--<ul class="feature-icons">
 							<li><span class="icon solid fa-laptop"></span><span class="label">Servicios para las Empresas</span></li>
 							<li><span class="icon solid fa-wifi"></span><span class="label">Servicios para el Hogar</span></li>
-							<!--<li><span class="icon solid fa-cloud"></span><span class="label">Transformación de Negocios</span></li>-->
-						</ul>
+							<li><span class="icon solid fa-cloud"></span><span class="label">Transformación de Negocios</span></li
+						</ul>>-->
 					</div>
 				</div>
 			</div>
@@ -155,7 +143,7 @@
 										<h3>Soporte y Mantenimiento</h3>
 										<p>Ofrecemos mantenimiento y soporte técnico para todos los equipos y soluciones que comercializamos.</p>
 										<ul class="actions">
-											<li><a href="#" class="button small">More</a></li>
+											<li><a href="IT_servicios.html" class="button small">More</a></li>
 										</ul>
 									</div>
 								</div>
@@ -167,19 +155,19 @@
 										<h3>Administración de Redes</h3>
 										<p>Nuestras soluciones van desade la planificación del cableado estructurado hasta la configuración de la red interna, asegurando disponibilidad y sostenibilidad.</p>
 										<ul class="actions">
-											<li><a href="#" class="button small">More</a></li>
+											<li><a href="Network.html" class="button small">More</a></li>
 										</ul>
 									</div>
 								</div>
 								<div class="profile">
 									<div class="image">
-										<img src="images/Seguridad.jpg" alt="" />
+										<img src="images/Seguridad_front.jpg" alt="" />
 									</div>
 									<div class="content">
 										<h3>Sistemas de Acceso y Seguridad</h3>
 										<p>Implementación de multiples técnicas para proteger tu información, salvaguardar tus actividades y transacciones que realizas.</p>
 										<ul class="actions">
-											<li><a href="#" class="button small">More</a></li>
+											<li><a href="Seguridad.html" class="button small">More</a></li>
 										</ul>
 									</div>
 								</div>
@@ -188,11 +176,11 @@
 							
 						</div>
 					</div>
-					<footer>
+				<!--	<footer>
 						<ul class="actions">
 							<li><a href="#" class="button">Learn More</a></li>
 						</ul>
-					</footer>
+					</footer>-->
 				</div>
 			</div>
 
@@ -201,28 +189,28 @@
 				<div class="wrapper style2">
 					<div class="inner">
 						<header class="major">
-							<h2>Get in touch</h2>
-							<p>Sed egestas, ante et vulputate volutpat pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum lorem ipsum dolor sit amet consequat hendrerit tortor semper lorem at felis.</p>
+							<h2>Ponte en contacto</h2>
+							<p>¿Tienes alguna pregunta o consulta? ¡Contáctanos! Estamos aquí para ayudarte. Nuestro equipo de expertos está listo para brindarte el soporte que necesitas. Completa el formulario de contacto o utiliza la información proporcionada para comunicarte con nosotros.</p>
 						</header>
 						<div class="content">
-					<!--	<div class="form">
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<input name="name" id="name" placeholder="Name" type="text" />
-										</div>
-										<div class="field half">
-											<input name="email" id="email" placeholder="Email" type="email" />
-										</div>
-										<div class="field">
-											<textarea name="message" id="message" rows="6" placeholder="Message"></textarea>
-										</div>
+				<!--<div class="form">
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field half">
+										<input name="name" id="name" placeholder="Name" type="text"/>
 									</div>
-									<ul class="actions special">
-										<li><input type="button" class="button" value="Send Message" /></li>
-									</ul>
-								</form>
-							</div>-->	
+									<div class="field half">
+										<input name="email" id="email" placeholder="Email" type="email" />
+									</div>
+									<div class="field">
+										<textarea name="message" id="message" rows="6" placeholder="Message"></textarea>
+									</div>
+								</div>
+								<ul class="actions special">
+									<li><input type="button" class="button" value="Send Message" /></li>
+								</ul>
+							</form>
+				</div>-->
 							<ul class="icons">
 								<!--<li>
 									<span class="icon solid fa-home"></span>
@@ -250,7 +238,7 @@
 						</div>
 					</div>
 					<div class="copyright">
-						&copy; Untitled. All rights reserved. Lorem ipsum dolor sit amet.
+						&copy; SISTEC INT. All rights reserved. SISTEC INT.
 					</div>
 				</div>
 			</div>
