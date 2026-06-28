@@ -127,47 +127,61 @@ document.addEventListener('DOMContentLoaded', async function() {
             const formatoFecha = (fecha) => fecha.toLocaleDateString('es-PA');
             const numCotizacion = Math.floor(Math.random() * 900000) + 100000; // Random 6 dígitos
 
-            // --- INICIALIZAR EL PDF ---
+           // --- INICIALIZAR EL PDF ---
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // 1. Cargar el logo (Asegúrate de que la imagen esté en esa ruta)
-            const logoData = await cargarLogo('images/Sistec-fullcolor_odoo.JPG');
+// 1. Cargar el logo y alinearlo a la izquierda
+            const logoData = await cargarLogo('images/crops green_f_b.jpg');
+            let startYDerecha = 20; // Iniciar el texto de la empresa arriba a la derecha
+            
             if(logoData) {
-                doc.addImage(logoData, 'JPEG', 20, 15, 45, 20); // Ajusta tamaño según necesites
-            } else {
-                doc.setFontSize(22);
-                doc.text("SISTEC INT", 20, 25);
+                // X=20 lo posiciona perfectamente a la izquierda
+                doc.addImage(logoData, 'JPEG', 20, 15, 45, 20); 
             }
 
             // 2. Información de la Empresa (Superior Derecha)
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            // Ya no sumamos los 26px extras porque el logo ya no empuja este texto hacia abajo
+            doc.text("SISTEC INT", 190, startYDerecha, { align: "right" });
+            
+            startYDerecha += 6;
             doc.setFontSize(9);
             doc.setTextColor(80, 80, 80);
-            doc.text("Ciudad de Panamá, Ernesto Córdobas Campo,", 190, 20, { align: "right" });
-            doc.text("urbanización PH colinas del lago calle 6, casa 193.", 190, 25, { align: "right" });
-            doc.text("RUC: 8-823-2025 DV:72", 190, 30, { align: "right" });
+            doc.text("Ciudad de Panamá, Ernesto Córdobas Campo,", 190, startYDerecha, { align: "right" });
+            startYDerecha += 5;
+            doc.text("urbanización PH colinas del lago calle 6, casa 193.", 190, startYDerecha, { align: "right" });
+            startYDerecha += 5;
+            doc.text("RUC: 8-823-2025 DV:72", 190, startYDerecha, { align: "right" });
             
+            startYDerecha += 10;
             doc.setFontSize(12);
             doc.setTextColor(0, 0, 0);
-            doc.text(`Cotización N°: ${numCotizacion}`, 190, 40, { align: "right" });
+            doc.text(`Cotización N°: ${numCotizacion}`, 190, startYDerecha, { align: "right" });
+            startYDerecha += 6;
             doc.setFontSize(10);
-            doc.text(`Fecha de creación: ${formatoFecha(fechaCreacion)}`, 190, 46, { align: "right" });
-            doc.text(`Válida hasta: ${formatoFecha(fechaVigencia)}`, 190, 52, { align: "right" });
+            doc.text(`Fecha de creación: ${formatoFecha(fechaCreacion)}`, 190, startYDerecha, { align: "right" });
+            startYDerecha += 6;
+            doc.text(`Válida hasta: ${formatoFecha(fechaVigencia)}`, 190, startYDerecha, { align: "right" });
 
             // 3. Información del Cliente (Izquierda)
+            // Ajustamos el inicio para que quede balanceado con la información de la derecha
+            let startYIzquierda = 50;
             doc.setFontSize(12);
-            doc.text(`Cliente: ${nombre}`, 20, 45);
-            doc.text(`Compañía: ${compania || 'No especificada'}`, 20, 52);
-            doc.text(`Correo: ${email}`, 20, 59);
+            doc.text(`Cliente: ${nombre}`, 20, startYIzquierda);
+            doc.text(`Compañía: ${compania || 'No especificada'}`, 20, startYIzquierda + 7);
+            doc.text(`Correo: ${email}`, 20, startYIzquierda + 14);
             
-            doc.line(20, 65, 190, 65);
+            // 4. Línea separadora y título de lista (Bajamos un poco por el nuevo tamaño del encabezado)
+            doc.line(20, 92, 190, 92);
             doc.setFontSize(12);
-            doc.text("Equipos y Servicios Solicitados:", 20, 75);
+            doc.text("Equipos y Servicios Solicitados:", 20, 102);
 
             // --- RECORRER FILAS MÚLTIPLES Y CALCULAR ITBMS ---
             let subtotalEquipos = 0;
             let itbmsTotal = 0;
-            let startY = 85; 
+            let startY = 112; // Inicio de la lista de equipos dinámicos
             
             doc.setFontSize(10);
             const filas = document.querySelectorAll('.fila-equipo');
@@ -307,6 +321,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             btnConfirmar.innerText = "Confirmar y Enviar por Correo";
             btnConfirmar.disabled = false;
+            
+            // Dentro de tu función de éxito (donde confirmas que el correo salió)
+            gtag('event', 'cotizacion_finalizada', {
+            'event_category': 'formulario',
+            'event_label': 'unifi_cotizador',
+            'value': 1 // Esto marca el éxito de la conversión
+            });
         });
     }
 });
