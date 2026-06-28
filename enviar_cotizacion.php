@@ -12,10 +12,13 @@ $nombreCliente = $data['nombre'];
 $emailCliente = $data['email'];
 $pdfBase64Completo = $data['pdf'];
 
-// 2. Separar los metadatos de Base64 del contenido real del archivo PDF
-list($tipo, $pdfBase64Completo) = explode(';', $pdfBase64Completo);
-list(, $pdfBase64Completo)      = explode(',', $pdfBase64Completo);
-$pdfDecodificado = base64_decode($pdfBase64Completo);
+// 2. Extraer SOLO el código Base64 puro de forma segura
+$posComa = strpos($pdfBase64Completo, ',');
+if ($posComa !== false) {
+    $pdfBase64Puro = substr($pdfBase64Completo, $posComa + 1);
+} else {
+    $pdfBase64Puro = $pdfBase64Completo;
+}
 
 // 3. Configuración de los correos
 // Se enviará el PDF tanto al cliente como a tu correo de contacto
@@ -45,7 +48,7 @@ $mensaje .= "--" . $boundary . "\r\n";
 $mensaje .= "Content-Type: application/pdf; name=\"Cotizacion_SISTEC_INT.pdf\"\r\n";
 $mensaje .= "Content-Transfer-Encoding: base64\r\n";
 $mensaje .= "Content-Disposition: attachment; filename=\"Cotizacion_SISTEC_INT.pdf\"\r\n\r\n";
-$mensaje .= chunk_split(base64_encode($pdfDecodificado)) . "\r\n";
+$mensaje .= chunk_split($pdfBase64Puro) . "\r\n";
 $mensaje .= "--" . $boundary . "--";
 
 // 7. Enviar el correo y reportar éxito o error a la ventana del cliente
