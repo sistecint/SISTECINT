@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const email = document.getElementById('clienteEmail').value;
 
             try {
-                const response = await fetch('/enviar_cotizacion.php', {
+                const response = await fetch('enviar_cotizacion.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
