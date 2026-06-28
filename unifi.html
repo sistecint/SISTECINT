@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html lang="es">
+    <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4DDLWZPFK9"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-4DDLWZPFK9');
+        </script>
+        
+        <title>Cotizador UniFi - SISTEC INT</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="assets/css/cotizador.css" />
+        
+        <script src="https://www.google.com/recaptcha/api.js?render=6LeKUBkmAAAAACiGSJwGMirYAiZUaJYo3VC2DWQs"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    </head>
+    <body class="is-preload">
+
+        <header id="header" class="alt">
+            <a class="logo" href="index.html">Soluciones <span>De tecnologías</span></a>
+            <nav id="nav">
+                <ul>
+                    <li class="current"><a href="https://wa.me/c/50765865061">Tienda</a></li>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li>
+                        <a href="#" class="dropdown">Servicios</a>
+                        <ul>
+                            <li><a href="Network.html">Redes y comunicaciones</a></li>
+                            <li><a href="Automatization.html">Automatización de áreas</a></li>
+                            <li><a href="Seguridad.html">Seguridad</a></li>
+                            <li><a href="IT_servicios.html">Servicios IT</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown">Nuestra Empresa</a>
+                        <ul>
+                            <li><a href="sistec.html">Quienes somos</a></li>
+                            <li><a href="TermsAndConditions.html">Terminos y condiciones</a></li>
+                        </ul>
+                    </li>       
+                    <li><a href="#footer">Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div id="banner">
+            <div class="wrapper style1 special">
+                <div class="inner">
+                    <h1 class="heading alt">SISTEC INT</h1>
+                    <p>El verdadero progreso es el que pone la tecnología al alcance de todos. "Henry Ford"</p>
+                    <div class="image fit special">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1000&auto=format&fit=crop" alt="Redes UniFi SISTEC INT" style="max-height: 300px; object-fit: cover; border-radius: 8px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="one">
+            <div class="wrapper special">
+                <div class="inner">
+                    <header class="major">
+                        <h2>Generar Cotización UniFi</h2>
+                        <p>Selecciona los equipos de red que necesitas y recibe la cotización en PDF al instante en tu correo electrónico.</p>
+                    </header>
+                    
+                    <div id="contenedor-formulario">
+                        <form id="formCotizador">
+                            <div class="form-group">
+                                <label>Nombre Completo:</label>
+                                <input type="text" id="clienteNombre" required placeholder="Ej. Juan Pérez">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Compañía:</label>
+                                <input type="text" id="clienteCompania" placeholder="Ej. Mi Empresa S.A.">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Correo Electrónico:</label>
+                                <input type="email" id="clienteEmail" required placeholder="juan@ejemplo.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Equipos a cotizar:</label>
+                                <div id="lista-equipos">
+                                    </div>
+                                <button type="button" id="btnAgregarEquipo" class="btn-secundario">+ Agregar otro equipo</button>
+                            </div>
+                            
+                            <!-- NUEVO: Campo de comentarios y requerimientos -->
+                            <div class="form-group" style="margin-top: 20px;">
+                                <label for="comentariosCliente">¿No encontraste lo que buscabas o necesitas algo más?</label>
+                                <textarea id="comentariosCliente" rows="3" placeholder="Ej. Necesito cotizar también 2 cámaras UniFi Protect o una licencia específica..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="checkbox" id="incluirInstalacion" value="100">
+                                <label for="incluirInstalacion">Quiero agendar una visita</label>
+                            </div>
+
+                            <div class="nota-disclaimer">
+                                <p><strong>Nota:</strong> A todos los precios mostrados se le debe sumar el ITBMS.</p>
+                                <p><strong>Importante:</strong> Para definir el costo final de instalación y configuración es necesario realizar una inspección sin costo.</p>
+                            </div>
+
+                           <!-- Botón Paso 1: Generar y Ver -->
+                            <button type="submit" id="btnGenerarPreview">Generar y Ver Cotización</button>
+                            <div id="mensaje" style="display: none;">¡Cotización enviada a tu correo con éxito!</div>
+                        </form>
+                    </div>
+
+                    <!-- NUEVO: Estructura de la Ventana Modal para el PDF -->
+                    <div id="pdfModal" class="modal-overlay" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close-modal" id="closeModal">&times;</span>
+                            <h3 style="margin-bottom: 15px; color: #333;">Vista Previa de tu Cotización</h3>
+                            <iframe id="pdfPreview" width="100%" height="450px" style="border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;"></iframe>
+                            
+                            <!-- Botón Paso 2: Confirmar y Enviar -->
+                            <button type="button" id="btnConfirmarEnviar" class="btn-primario" style="width: 100%; padding: 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                                Confirmar y Enviar por Correo
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="wrapper style2">
+                <div class="inner">
+                    <header class="major">
+                        <h2>Ponte en contacto</h2>
+                        <p>¿Tienes alguna pregunta o consulta? ¡Contáctanos! Estamos aquí para ayudarte.</p>
+                    </header>
+                    <div class="content">
+                        <ul class="icons" style="text-align: center; list-style: none; padding: 0;">
+                            <li style="display: inline-block; margin: 0 15px;">
+                                <span class="icon solid fa-envelope"></span>
+                                <div>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:contacto@sistecint.com">contacto@sistecint.com</a>
+                                </div>
+                            </li>
+                            <li style="display: inline-block; margin: 0 15px;">
+                                <span class="icon solid fa-phone"></span>
+                                <div>
+                                    <strong>Phone</strong><br>
+                                    (507) 6586-5061
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    &copy; SISTEC INT. All rights reserved. SISTEC INT.
+                </div>
+            </div>
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.dropotron.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+        
+        <script src="assets/js/cotizador.js"></script>
+
+    </body>
+</html>
