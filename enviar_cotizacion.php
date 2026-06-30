@@ -22,9 +22,9 @@ if ($posComa !== false) {
 
 // 3. Configuración de los correos
 // Se enviará el PDF tanto al cliente como a tu correo de contacto
-$para = $emailCliente . ", contacto@sistecint.com"; 
+$para = $emailCliente . ", javier@sistecint.com"; 
 $asunto = "Cotización de Equipos y Servicios - SISTEC INT";
-$remitente = "contacto@sistecint.com";
+$remitente = "javier@sistecint.com";
 
 // Generar un límite (boundary) para separar el texto del correo del archivo adjunto
 $boundary = md5(time());
