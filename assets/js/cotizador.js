@@ -311,6 +311,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         listaEquiposContainer.innerHTML = '';
                         agregarFilaEquipo(); 
                     }
+                    gtag('event', 'generacion_cotizacion');
                 } else {
                     alert('Hubo un error al procesar el envío.');
                 }
